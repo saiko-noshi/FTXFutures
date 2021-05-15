@@ -49,12 +49,12 @@ namespace FTXFutures
                     if (obj["perpetual"] == "true" || Convert.ToDateTime(obj["expiry"].ToString()).Month.ToString() != month || obj["bid"] == null
                     || obj["ask"] == null || obj["name"].ToString().Contains("MOVE")) continue; // filter out perp contracts
 
-                    decimal premium = (((Convert.ToDecimal(obj["index"]) - Convert.ToDecimal(obj["bid"])) /
-                                   Math.Abs(Convert.ToDecimal(obj["bid"]))) * 100) * -1;
+                    decimal premium = (((Convert.ToDecimal(obj["bid"]) - Convert.ToDecimal(obj["index"])) /
+                                        Math.Abs(Convert.ToDecimal(obj["index"]))) * 100);
                     obj["premium"] = premium; // save premium
 
-                    decimal discount = (((Convert.ToDecimal(obj["index"]) - Convert.ToDecimal(obj["ask"])) /
-                                        Math.Abs(Convert.ToDecimal(obj["ask"]))) * 100) * -1;
+                    decimal discount = (((Convert.ToDecimal(obj["ask"]) - Convert.ToDecimal(obj["index"])) /
+                                        Math.Abs(Convert.ToDecimal(obj["index"]))) * 100);
                     obj["discount"] = discount; // save discount
                     premiums.Add(obj); // add future to list
                 }
